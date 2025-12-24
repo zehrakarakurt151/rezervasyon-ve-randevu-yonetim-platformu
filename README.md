@@ -333,12 +333,12 @@ Bu proje MIT Lisansı altında lisanslanmıştır.
 
 ## 👨‍💻 Geliştirici
 
-**Bitirme Projesi** - 2024/2025 Akademik Yılı
+**Bitirme Tezi** - 2025/2026 Akademik Yılı
 
 ---
 
 <div align="center">
 
-⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
+
 
 </div>

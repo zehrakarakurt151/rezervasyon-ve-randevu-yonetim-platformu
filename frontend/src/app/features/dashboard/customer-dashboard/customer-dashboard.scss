@@ -1,0 +1,106 @@
+.sidenav-container { height: 100vh; }
+
+.sidenav {
+  width: 260px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+
+  .user-profile {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+
+    .avatar-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #673ab7; // Mor
+      color: white;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .user-info {
+        text-align: center;
+        .name { display: block; font-weight: bold; font-size: 16px; }
+        .role { font-size: 12px; color: #777; }
+    }
+  }
+}
+
+.customer-toolbar {
+    background-color: #673ab7; // Mor tema
+    color: white;
+}
+
+.spacer { flex: 1 1 auto; }
+.content-padding { padding: 20px; max-width: 900px; margin: 0 auto; }
+
+.welcome-banner {
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+    padding: 30px;
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    h1 { margin: 0; font-size: 28px; }
+    p { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
+    
+    .action-btn {
+        padding: 0 25px;
+        height: 45px;
+    }
+}
+
+.appointment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.app-card {
+    display: flex;
+    flex-direction: row; // Mobilde column olabilir
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 12px;
+    
+    .card-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .date-box {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 60px;
+            
+            .day { display: block; font-size: 20px; font-weight: bold; color: #333; }
+            .month { display: block; font-size: 12px; text-transform: uppercase; color: #666; }
+        }
+    }
+
+    .card-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        
+        .time-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+    }
+}

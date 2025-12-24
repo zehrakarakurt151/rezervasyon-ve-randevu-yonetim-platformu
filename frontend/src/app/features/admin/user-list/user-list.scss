@@ -1,0 +1,34 @@
+.page-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+  }
+}
+
+.table-card {
+  overflow: hidden; // Köşeleri yuvarla
+}
+
+table {
+  width: 100%;
+}
+
+// Chip (Rol) Renkleri
+mat-chip {
+  font-size: 12px;
+  min-height: 24px;
+  
+  &.admin { background-color: #e91e63 !important; color: white; }
+  &.provider { background-color: #3f51b5 !important; color: white; }
+  &.customer { background-color: #4caf50 !important; color: white; }
+}

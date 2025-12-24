@@ -1,0 +1,224 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- SOL MENÜ (SIDEBAR) -->
+  <mat-sidenav #sidenav mode="side" [(opened)]="isSidebarOpen" class="sidenav">
+    <div class="logo-area">
+      <mat-icon>admin_panel_settings</mat-icon>
+      <span>Yönetici Paneli</span>
+    </div>
+
+    <mat-nav-list>
+      <a mat-list-item href="javascript:void(0)" class="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Ana Sayfa</span>
+      </a>
+      <a mat-list-item href="javascript:void(0)">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Kullanıcılar</span>
+      </a>
+      <a mat-list-item href="javascript:void(0)">
+        <mat-icon matListItemIcon>store</mat-icon>
+        <span matListItemTitle>Hizmet Sağlayıcılar</span>
+      </a>
+      <a mat-list-item href="javascript:void(0)">
+        <mat-icon matListItemIcon>event</mat-icon>
+        <span matListItemTitle>Randevular</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- ANA İÇERİK ALANI -->
+  <mat-sidenav-content>
+
+    <!-- Üst Toolbar -->
+    <mat-toolbar color="primary" class="top-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Rezervasyon ve Randevu Platformu - Admin</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- İçerik -->
+    <div class="content-padding">
+
+      <!-- Loading -->
+      <div *ngIf="isLoadingStats" class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Yükleniyor...</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="dashboard-cards" *ngIf="stats && !isLoadingStats">
+        <!-- Müşteriler -->
+        <mat-card class="stat-card blue">
+          <mat-card-header>
+            <mat-card-title>{{stats.totalCustomers}}</mat-card-title>
+            <mat-card-subtitle>Toplam Müşteri</mat-card-subtitle>
+          </mat-card-header>
+          <mat-icon>people</mat-icon>
+        </mat-card>
+
+        <!-- Sağlayıcılar -->
+        <mat-card class="stat-card purple">
+          <mat-card-header>
+            <mat-card-title>{{stats.totalProviders}}</mat-card-title>
+            <mat-card-subtitle>Hizmet Sağlayıcı</mat-card-subtitle>
+          </mat-card-header>
+          <mat-icon>store</mat-icon>
+        </mat-card>
+
+        <!-- Bekleyen Randevular -->
+        <mat-card class="stat-card orange">
+          <mat-card-header>
+            <mat-card-title>{{stats.pendingAppointments}}</mat-card-title>
+            <mat-card-subtitle>Bekleyen Randevu</mat-card-subtitle>
+          </mat-card-header>
+          <mat-icon>schedule</mat-icon>
+        </mat-card>
+
+        <!-- Tamamlanan -->
+        <mat-card class="stat-card green">
+          <mat-card-header>
+            <mat-card-title>{{stats.completedAppointments}}</mat-card-title>
+            <mat-card-subtitle>Tamamlanan</mat-card-subtitle>
+          </mat-card-header>
+          <mat-icon>check_circle</mat-icon>
+        </mat-card>
+
+        <!-- Toplam Ciro -->
+        <mat-card class="stat-card teal">
+          <mat-card-header>
+            <mat-card-title>₺{{stats.totalRevenue}}</mat-card-title>
+            <mat-card-subtitle>Toplam Ciro</mat-card-subtitle>
+          </mat-card-header>
+          <mat-icon>payments</mat-icon>
+        </mat-card>
+      </div>
+
+      <!-- Tabs for Users and Appointments -->
+      <mat-tab-group class="data-tabs">
+
+        <!-- Kullanıcılar Tab -->
+        <mat-tab label="Kullanıcılar">
+          <div class="tab-content">
+            <div *ngIf="isLoadingUsers" class="loading-container">
+              <mat-spinner diameter="30"></mat-spinner>
+            </div>
+
+            <table mat-table [dataSource]="users" class="data-table" *ngIf="!isLoadingUsers && users.length > 0">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let user">{{user.id}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Ad Soyad</th>
+                <td mat-cell *matCellDef="let user">{{user.firstName}} {{user.lastName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>E-posta</th>
+                <td mat-cell *matCellDef="let user">{{user.email}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef>Telefon</th>
+                <td mat-cell *matCellDef="let user">{{user.phoneNumber}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef>Rol</th>
+                <td mat-cell *matCellDef="let user">
+                  <mat-chip-set>
+                    <mat-chip
+                      [color]="user.role === 'Admin' ? 'warn' : user.role === 'ServiceProvider' ? 'accent' : 'primary'">
+                      {{user.role === 'Customer' ? 'Müşteri' : user.role === 'ServiceProvider' ? 'Sağlayıcı' : 'Admin'}}
+                    </mat-chip>
+                  </mat-chip-set>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="createdDate">
+                <th mat-header-cell *matHeaderCellDef>Kayıt Tarihi</th>
+                <td mat-cell *matCellDef="let user">{{user.createdDate | date:'dd.MM.yyyy'}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+            </table>
+
+            <p *ngIf="!isLoadingUsers && users.length === 0" class="empty-message">
+              Henüz kayıtlı kullanıcı bulunmuyor.
+            </p>
+          </div>
+        </mat-tab>
+
+        <!-- Randevular Tab -->
+        <mat-tab label="Randevular">
+          <div class="tab-content">
+            <div *ngIf="isLoadingAppointments" class="loading-container">
+              <mat-spinner diameter="30"></mat-spinner>
+            </div>
+
+            <table mat-table [dataSource]="appointments" class="data-table"
+              *ngIf="!isLoadingAppointments && appointments.length > 0">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let apt">{{apt.id}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="customer">
+                <th mat-header-cell *matHeaderCellDef>Müşteri</th>
+                <td mat-cell *matCellDef="let apt">{{apt.customerName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="provider">
+                <th mat-header-cell *matHeaderCellDef>İşletme</th>
+                <td mat-cell *matCellDef="let apt">{{apt.providerName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="service">
+                <th mat-header-cell *matHeaderCellDef>Hizmet</th>
+                <td mat-cell *matCellDef="let apt">{{apt.serviceName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Tarih</th>
+                <td mat-cell *matCellDef="let apt">{{apt.startTime | date:'dd.MM.yyyy HH:mm'}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef>Tutar</th>
+                <td mat-cell *matCellDef="let apt">₺{{apt.totalPrice}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Durum</th>
+                <td mat-cell *matCellDef="let apt">
+                  <mat-chip-set>
+                    <mat-chip [color]="getStatusColor(apt.status)">
+                      {{getStatusText(apt.status)}}
+                    </mat-chip>
+                  </mat-chip-set>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="appointmentColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: appointmentColumns;"></tr>
+            </table>
+
+            <p *ngIf="!isLoadingAppointments && appointments.length === 0" class="empty-message">
+              Henüz randevu bulunmuyor.
+            </p>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

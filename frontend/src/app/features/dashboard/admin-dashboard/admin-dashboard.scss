@@ -1,0 +1,112 @@
+.sidenav-container {
+    height: 100vh;
+  }
+  
+  .sidenav {
+    width: 250px;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+  
+    .logo-area {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      font-weight: bold;
+      font-size: 18px;
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 10px;
+      color: #3f51b5;
+    }
+  }
+  
+  .top-toolbar {
+    background: #3f51b5;
+    color: white;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .content-padding {
+    padding: 20px;
+  }
+  
+  .dashboard-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  
+  .stat-card {
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+  
+    mat-icon {
+        font-size: 40px;
+        height: 40px;
+        width: 40px;
+        opacity: 0.8;
+    }
+  
+    &.blue { background: linear-gradient(45deg, #2196F3, #21CBF3); }
+    &.green { background: linear-gradient(45deg, #4CAF50, #8BC34A); }
+    &.orange { background: linear-gradient(45deg, #FF9800, #FFC107); }
+    &.purple { background: linear-gradient(45deg, #9C27B0, #E040FB); }
+    &.teal { background: linear-gradient(45deg, #009688, #4DB6AC); }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 15px;
+    
+    p {
+      color: #666;
+    }
+  }
+
+  .data-tabs {
+    margin-top: 20px;
+  }
+
+  .tab-content {
+    padding: 20px 0;
+  }
+
+  .data-table {
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+
+    th {
+      background-color: #f5f5f5;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #fafafa;
+    }
+  }
+
+  .empty-message {
+    text-align: center;
+    color: #888;
+    padding: 40px;
+    font-style: italic;
+  }

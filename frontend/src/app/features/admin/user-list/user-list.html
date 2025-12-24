@@ -1,0 +1,64 @@
+<div class="page-container">
+  <div class="header">
+    <h1>Kullanıcı Yönetimi</h1>
+    <button mat-raised-button color="primary">
+      <mat-icon>add</mat-icon> Yeni Kullanıcı
+    </button>
+  </div>
+
+  <mat-card class="table-card">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+
+      <!-- ID Sütunu -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- İsim Sütunu -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Ad Soyad </th>
+        <td mat-cell *matCellDef="let element"> <b>{{element.name}}</b> </td>
+      </ng-container>
+
+      <!-- Email Sütunu -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> E-Posta </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <!-- Rol Sütunu -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef> Rol </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-chip [ngClass]="element.role.toLowerCase()">
+            {{element.role}}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <!-- Durum Sütunu -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Durum </th>
+        <td mat-cell *matCellDef="let element">
+          <span [style.color]="element.status === 'Aktif' ? 'green' : 'red'">
+            ● {{element.status}}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- İşlemler Sütunu -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> İşlemler </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="deleteUser(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>

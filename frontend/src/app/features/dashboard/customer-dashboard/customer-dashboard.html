@@ -1,0 +1,107 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- SOL MENÜ -->
+  <mat-sidenav #sidenav mode="side" [(opened)]="isSidebarOpen" class="sidenav">
+    <div class="user-profile">
+      <div class="avatar-circle">M</div>
+      <div class="user-info">
+        <span class="name">Müşteri</span>
+        <span class="role">Standart Üye</span>
+      </div>
+    </div>
+
+    <mat-nav-list>
+      <a mat-list-item href="javascript:void(0)" class="active-link">
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Ana Sayfa</span>
+      </a>
+      <a mat-list-item routerLink="/appointment-new">
+        <mat-icon matListItemIcon>add_circle</mat-icon>
+        <span matListItemTitle>Randevu Al</span>
+      </a>
+      <a mat-list-item href="javascript:void(0)">
+        <mat-icon matListItemIcon>calendar_today</mat-icon>
+        <span matListItemTitle>Randevularım</span>
+      </a>
+      <a mat-list-item routerLink="/profile">
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>Profilim</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- İÇERİK -->
+  <mat-sidenav-content>
+
+    <!-- Toolbar -->
+    <mat-toolbar class="customer-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Müşteri Paneli</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="content-padding">
+
+      <!-- Hoş Geldiniz Alanı -->
+      <div class="welcome-banner">
+        <h1>Hoş Geldiniz! 👋</h1>
+        <p>Bugün hangi hizmeti almak istersiniz?</p>
+        <button mat-raised-button color="accent" class="action-btn" routerLink="/appointment-new">
+          <mat-icon>search</mat-icon> HİZMET ARA
+        </button>
+      </div>
+
+      <h3>Randevularınız</h3>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <!-- Boş Durum -->
+      <div *ngIf="!isLoading && appointments.length === 0" class="empty-state">
+        <mat-icon>event_busy</mat-icon>
+        <p>Henüz randevunuz bulunmuyor.</p>
+        <button mat-raised-button color="primary" routerLink="/appointment-new">
+          İlk Randevunuzu Alın
+        </button>
+      </div>
+
+      <!-- Randevu Kartları -->
+      <div class="appointment-list" *ngIf="!isLoading && appointments.length > 0">
+        <mat-card class="app-card" *ngFor="let item of appointments">
+          <div class="card-left">
+            <div class="date-box">
+              <span class="day">{{ formatDate(item.startTime).split(' ')[0] }}</span>
+              <span class="month">{{ formatDate(item.startTime).split(' ')[1] }}</span>
+            </div>
+            <div class="info">
+              <mat-card-title>{{ item.serviceName }}</mat-card-title>
+              <mat-card-subtitle>{{ item.providerName }}</mat-card-subtitle>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="time-badge">
+              <mat-icon>schedule</mat-icon> {{ formatTime(item.startTime) }}
+            </div>
+            <mat-chip-set>
+              <mat-chip [color]="getStatusColor(item.status)">
+                {{ getStatusText(item.status) }}
+              </mat-chip>
+            </mat-chip-set>
+            <button mat-icon-button color="warn" *ngIf="item.status === 'Pending' || item.status === 'Confirmed'"
+              (click)="cancelAppointment(item.id)" matTooltip="Randevuyu İptal Et">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </div>
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

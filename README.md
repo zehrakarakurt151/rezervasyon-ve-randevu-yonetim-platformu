@@ -4,7 +4,7 @@
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=for-the-badge&logo=angular&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
 **Modern, ölçeklenebilir ve kullanıcı dostu bir randevu yönetim sistemi**
@@ -80,7 +80,7 @@ Bu proje, hizmet sağlayıcıları (berber, kuaför, doktor, danışman vb.) ile
 | .NET | 8.0 | Modern, yüksek performanslı framework |
 | ASP.NET Core | 8.0 | RESTful Web API geliştirme |
 | Entity Framework Core | 8.0 | ORM - Veritabanı işlemleri |
-| SQLite | 3.x | Hafif, taşınabilir veritabanı |
+| SQL Server LocalDB | - | Visual Studio ile gelen hafif SQL Server |
 | JWT Bearer | - | Token tabanlı kimlik doğrulama |
 
 ### Frontend
